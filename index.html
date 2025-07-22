@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Product Metrics Q&A</title>
+</head>
+<body>
+    <h1>Ask a Question about Product Metrics</h1>
+
+    <label for="question">Enter your question:</label><br>
+    <input type="text" id="question" name="question" size="80"><br><br>
+    <button onclick="submitQuestion()">Ask</button>
+
+    <h2>Answer:</h2>
+    <pre id="responseBox"></pre>
+
+    <script>
+        async function submitQuestion() {
+            const question = document.getElementById("question").value;
+
+            const response = await fetch("/ask", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ question: question })
+            });
+
+            const result = await response.json();
+            document.getElementById("responseBox").textContent = JSON.stringify(result, null, 2);
+        }
+    </script>
+</body>
+</html>
